@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-/* Daniel Sokic, 6164545
+/* Daniel Sokic
 
 	This header defines the struct of PRecord, with its variables being the item
 	it holds, the priority in queue it has, and the reference to the next PRecord

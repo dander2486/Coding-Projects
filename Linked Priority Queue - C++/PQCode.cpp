@@ -1,7 +1,7 @@
 #include "PQheader.h"
 #include <string>
 
-/* Daniel Sokic 6164545 */
+/* Daniel Sokic */
 
 
 /* This method takes the item and order of a record, along with the starting record to add to.
