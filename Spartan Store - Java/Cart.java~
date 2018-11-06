@@ -1,0 +1,64 @@
+package Spartan;
+
+/** This interface represents a cart that will store all of the items a customer
+  * wishes to purchase in a linked list, along with calculate the total cost of the order.
+  * Each cart will be assigned an order number upon creation.
+  * 
+  * @author Daniel Sokic
+  * 
+  * @version 1.0 (Mar. 2018)                                             */
+
+public interface Cart {
+  
+  /**This method adds an item to the cart by a given amount, if the item is already present in
+    * the cart it will increment the count by however much indicated. Will not add the amount
+    * indicated if there is not the specified amount of item.
+    * 
+    * @param addAmount the amount of product the user has requested
+    * @param newItemNum the item number being added
+    * 
+    * @exception OutofBoundsException The amount requested is not present in the store */
+  
+  public void addItem( int addAmount, String newItemNum );
+  
+  /** This method removes the specified item and amount from the cart. Will
+    * return an error if no items are in the cart
+    * 
+    * @exception NoValueException no items are in the cart
+    * @exception OutofBoundsException the item number is not in the cart */
+  
+  public void removeItem( int removeAmount , String ItemNum );
+  
+  /** This method returns the item at a particular position. Will return
+    * an error if the position is out of bounds of the length of the cart.
+    * 
+    * @param itemNum the item numbet of the item needed
+    * 
+    * @exception OutofBoundsException the indicated position is out of bounds*/
+  
+  public Item getItem( String itemNum );
+  
+  /** This method returns the order number of the cart
+    * 
+    * @return String the order number                                           */
+  
+  public String getOrderNum();
+  
+  //This method will calculate and return the total cost of the cart
+  
+  public double calcCost();
+  
+  //This method returns the amount of items in the cart
+  
+  public int getCartQuantity();
+  
+  //This method returns the buy list of the cart
+  
+  public Node<CartItem> getList();
+  
+  //This method updates the order num of the cart
+  
+  public void setOrderNum( String newOrderNum );
+  
+  
+} //Cart

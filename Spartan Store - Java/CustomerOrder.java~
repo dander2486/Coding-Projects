@@ -1,0 +1,253 @@
+package Spartan;
+
+import BasicIO.*;
+import static BasicIO.Formats.*;
+import java.io.*;
+
+/**This class is the main class that intializes all necessary objects to
+  * run the Spartan website.
+  * 
+  * @author Daniel Sokic
+  * 
+  * @version  1.0  (Mar.2018)                          */
+
+public class CustomerOrder implements Serializable {
+  
+  private StoreDatabase storeData;
+  private BasicForm loginScreen;
+  private BasicForm orderForm;
+  private BinaryDataFile StoreFile;
+  private StoreCatalogue catalogue;
+  private CustomerCart cart;
+  private StoreCustomer currentCustomer;
+  private boolean printOrder;
+  private ReportPrinter Report;
+  
+  private BinaryOutputFile newShippingList;
+  private BinaryDataFile oldShippingList;
+  private Node<StoreCustomer> ShippingList;
+  
+  
+  private CustomerOrder() { 
+    
+    oldShippingList = new BinaryDataFile();
+    try{
+      ShippingList = (Node<StoreCustomer>)oldShippingList.readObject();
+    }
+    catch(NullPointerException e ){
+      ShippingList = null;
+    }
+    
+    loginScreen = new BasicForm("Login", "Quit");
+    StoreFile = new BinaryDataFile();
+    storeData = (StoreDatabase)StoreFile.readObject();
+    
+    buildLogin();
+   
+    if( Login() == 1 ){
+      orderForm = new BasicForm("Add", "Remove", "Done");
+      buildOrderForm();
+      
+      catalogue = storeData.getCatalogue();
+      fillCatalogue();
+      
+      cart = currentCustomer.getCart();
+      orderForm.writeString("total", "$" + cart.calcCost());
+      
+      printOrder = false;
+      OrderForm();
+      
+      if(printOrder == true){
+        currentCustomer.setCart(cart);
+        addToShippingList();
+        Report = new ReportPrinter();
+        buildReport();
+        newShippingList = new BinaryOutputFile();
+        newShippingList.writeObject(ShippingList);
+        Report.close();
+      }
+      
+    } 
+  }
+  
+  private void buildLogin(){
+    
+    loginScreen.addTextField("user","UserID:", 15);
+    loginScreen.addTextField("pass","Password:", 12);
+    loginScreen.addTextField("error",22);
+    
+    loginScreen.setEditable("error",false);
+    
+  }
+  
+  private void buildOrderForm(){
+    
+    orderForm.addTextField("itemnum","Item #", 7, 10, 400);
+    orderForm.addTextField("quant","Quantity", 3, 110, 400);
+    orderForm.addTextField("total","Order Total", getCurrencyInstance(), 10, 340, 397);
+    orderForm.addTextArea("cata", "Catalogue", 20, 40, 10, 10);
+    orderForm.addTextArea("cart", "Cart", 20, 40, 340, 10);
+    
+    orderForm.setEditable("total", false);
+  }
+  
+  private void buildReport(){
+    
+    Report.setTitle("Order Confirmation", "Order #:" + cart.getOrderNum(), 
+                    "Customer #:" + currentCustomer.getID(), 
+                    "Name: " + currentCustomer.getUserName(),
+                    "Address: " + currentCustomer.getAddress());
+    
+    Report.addField("quant", "Quantity", 8);
+    Report.addField("itemnum", "Item #", 6);
+    Report.addField("desc", "Description", 25);
+    Report.addField("amount", "Amount", 7);
+    Report.addField("total", "Total", getCurrencyInstance(), 7);
+    
+    Node<CartItem> buyList = cart.getList();
+    
+    while( buyList != null ){
+      int itemQuant = buyList.item.getQuant();
+      double itemPrice = buyList.item.getPrice();
+      String itemNum = buyList.item.getItemNum();
+      String itemDesc = buyList.item.getDesc();
+      Report.writeString("quant", Integer.toString(itemQuant));
+      Report.writeString("itemnum", itemNum);
+      Report.writeString("desc", itemDesc);
+      Report.writeString("amount", "$" + itemPrice);
+      double Total = itemQuant * itemPrice;
+      Report.writeString("total", "$" + Total);
+      buyList = buyList.next;
+    }
+    
+    Report.writeString("desc", "Total");
+    Report.writeDouble("total", cart.calcCost());
+    
+  }
+  
+  private void fillCatalogue(){
+    
+    Node<StoreItem> itemList = catalogue.getList();
+    
+    while( itemList != null ){
+      String itemNum = itemList.item.getItemNum();
+      double itemPrice = itemList.item.getPrice();
+      String itemDesc = itemList.item.getDesc();
+      orderForm.writeString("cata", itemNum + "\t$" + itemPrice + " " + itemDesc);
+      orderForm.newLine("cata");
+      itemList = itemList.next;
+    }
+    
+  }
+  
+  private void updateCart(){
+    
+    Node<CartItem> buyList = cart.getList();
+    
+    while( buyList != null ){
+      int itemQuant = buyList.item.getQuant();
+      double itemPrice = buyList.item.getPrice();
+      String itemNum = buyList.item.getItemNum();
+      String itemDesc = buyList.item.getDesc();
+      orderForm.writeString("cart", itemQuant + "\t$" + itemPrice + " " + itemNum
+                              + " " + itemDesc);
+      orderForm.newLine("cart");
+      buyList = buyList.next;
+    }
+    
+    orderForm.clear("total");
+    orderForm.writeDouble("total", cart.calcCost());
+  }
+  
+  private int Login(){
+    for( ; ; ){  
+      if(loginScreen.accept() == 1){
+        loginScreen.close();
+        return 0;
+      }
+      else{
+        if(storeData.checkPassword(loginScreen.readString("user"), loginScreen.readString("pass"))){
+          currentCustomer = storeData.getCustomer(loginScreen.readString("user"));
+          loginScreen.close();
+          return 1;
+        }
+        else{
+          loginScreen.writeString("error", "wrong ID or password");
+          loginScreen.clear("user");
+          loginScreen.clear("pass");
+        }
+      }
+    }
+  }
+  
+  private void OrderForm(){
+    
+    String itemNum;
+    int quantity;
+    boolean doneCheck = false;
+    
+    while(doneCheck == false){
+        switch (orderForm.accept()){
+          
+          case 0:
+            itemNum = orderForm.readString("itemnum");
+            quantity = orderForm.readInt("quant");
+            if(quantity > 0){
+              cart.addItem(quantity, itemNum);
+              orderForm.clear("cart");
+              updateCart();
+            }
+            orderForm.clear("itemnum");
+            orderForm.clear("quant");
+            break;
+            
+          case 1:
+            itemNum = orderForm.readString("itemnum");
+            quantity = orderForm.readInt("quant");
+            cart.removeItem(quantity, itemNum);
+            orderForm.clear("cart");
+            updateCart();
+            orderForm.clear("itemnum");
+            orderForm.clear("quant");
+            break;
+          
+          case 2:
+            if(cart == null){
+              doneCheck = true;
+              orderForm.close();
+            }
+            else{
+              printOrder = true;
+              doneCheck = true;
+              orderForm.close();
+            }
+            break;
+        }
+        
+      }
+    
+  }
+  
+  private void addToShippingList(){
+    
+    Node<StoreCustomer> p = ShippingList;
+    Node<StoreCustomer> q = null;
+    
+    if(ShippingList == null){
+      ShippingList = new Node<StoreCustomer>(currentCustomer,null);
+    }
+    else{
+      while(p != null){
+        q = p;
+        p = p.next;
+      }
+      currentCustomer.getCart().setOrderNum(q.item.getCart().getOrderNum() + 1);
+      q.next = new Node<StoreCustomer>(currentCustomer,null);
+    }
+  }
+    
+  
+  
+  public static void main(String[] args) { new CustomerOrder(); }; 
+  
+}

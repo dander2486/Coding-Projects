@@ -1,0 +1,39 @@
+package Assign_5;
+
+
+/** This class represents the exception that occurs when an attempt is made to
+  * indicate a non-existent position in a list.
+  * 
+  * @author Daniel Sokic
+  * 
+  * @version  1.0  (Mar.2018)                                                   */
+
+public class CustomerDatabase implements LoginDatabase{
+  
+  
+  /**This method returns true if the specified password is for the specified user.
+    * Exception is thrown if the username is not in the database or if password is not correct.
+    * 
+    * @param username the username of the customer
+    * 
+    * @param password the password of the customer
+    * 
+    * @return boolean if the password is correct for the user
+    * 
+    * @exception NoValueException the specified username is not in the database  */
+  
+  public boolean checkPassword( String username, String password );
+  
+  /**This method adds a customer to the linked list of customers. Will
+    * return an error if the customer information matches any of the other
+    * customers' information (except passwords) 
+    * 
+    * @param newCustomer the customer to be added
+    * 
+    * @exception AlreadyExistException part of the customer's information was already in the database */
+  
+  public void addNewCustomer( Customer newCustomer );
+  
+
+
+} //LoginDatabase

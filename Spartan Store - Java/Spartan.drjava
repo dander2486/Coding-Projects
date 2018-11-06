@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<drjava version="drjava-20160913-225446">
+  <project autorefresh="false" build="" root="" work="">
+    <createjar file=""/>
+    <source>
+      <file active="true" name="StoreSetup.java" package="Spartan" timestamp="05-Apr-2018 22:14:05">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Catalogue.java" package="Spartan" timestamp="04-Apr-2018 18:05:57">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Customer.java" package="Spartan" timestamp="04-Apr-2018 18:05:58">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Cart.java" package="Spartan" timestamp="05-Apr-2018 17:06:38">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="AlreadyExistException.java" package="Spartan" timestamp="05-Apr-2018 17:31:48">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Node.java" package="Spartan" timestamp="05-Apr-2018 17:33:28">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="NoValueException.java" package="Spartan" timestamp="05-Apr-2018 17:33:28">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="OutofBoundsException.java" package="Spartan" timestamp="05-Apr-2018 17:33:28">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Item.java" package="Spartan" timestamp="05-Apr-2018 17:33:40">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="CustomerCart.java" package="Spartan" timestamp="05-Apr-2018 17:58:16">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="Database.java" package="Spartan" timestamp="05-Apr-2018 20:00:49">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="CartItem.java" package="Spartan" timestamp="05-Apr-2018 20:00:49">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="CustomerOrder.java" package="Spartan" timestamp="05-Apr-2018 20:00:49">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="StoreDatabase.java" package="Spartan" timestamp="05-Apr-2018 22:14:05">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="ShippingForm.java" package="Spartan" timestamp="05-Apr-2018 22:14:05">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="StoreItem.java" package="Spartan" timestamp="05-Apr-2018 22:14:05">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="StoreCatalogue.java" package="Spartan" timestamp="05-Apr-2018 22:14:05">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="StoreCustomer.java" package="Spartan" timestamp="05-Apr-2018 22:14:05">
+        <select from="191" to="191"/>
+        <scroll column="0" row="0"/>
+      </file>
+    </source>
+    <included/>
+    <excluded/>
+    <collapsed/>
+    <classpath/>
+    <breakpoints/>
+    <watches/>
+    <bookmarks/>
+    <preferences/>
+  </project>
+</drjava>

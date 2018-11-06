@@ -1,0 +1,20 @@
+package Assign_5;
+
+/**This class is the main class that intializes all necessary objects to
+  * run the Spartan website.
+  * 
+  * @author Daniel Sokic
+  * 
+  * @version  1.0  (Mar.2018)                          */
+
+public class SpartanStore {
+  
+  public SpartanStore() { 
+    /* YOUR CONSTRUCTOR CODE HERE*/
+  }
+  
+  
+  
+  public static void main(String[] args) {}; 
+  
+}

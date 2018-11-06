@@ -1,0 +1,114 @@
+package Spartan;
+
+import BasicIO.*;
+import java.io.*;
+
+/** This interface represents a catalogue which will store all of the
+  * items for sale in a linked list, regardless of availability
+  * 
+  * @author Daniel Sokic
+  * 
+  * @version 1.0 (Mar. 2018)                                             */
+
+public class StoreCatalogue implements Catalogue, Serializable {
+  
+  private Node<StoreItem> catalogueList;
+  private String itemId;
+  private double itemPrice;
+  private String itemDesc;
+  private int itemAmount;
+  
+  public StoreCatalogue( ASCIIDataFile from ){
+    
+    catalogueList = null;
+    itemAmount = from.readInt();
+    
+    for( int i = 0; i < itemAmount; i++ ){
+      itemId = from.readString();
+      itemPrice = from.readDouble();
+      itemDesc = from.readString();
+      
+      
+      this.addItem(new StoreItem(itemId, itemPrice, itemDesc));
+    }
+    
+  }
+    
+  
+  /**This method returns the item specified by the item number, if the
+    * item number is not present, an exception is thrown.
+    * 
+    * @exception NoValueException the indicated item number is not present */
+  
+  public StoreItem getItem( String ItemNum ){
+    
+    Node<StoreItem> p = catalogueList;
+    
+    while( p != null ){
+      
+      if(p.item.getItemNum().equals(ItemNum)){
+        return p.item;
+      }
+      else{
+        p = p.next; 
+      }
+    }
+    
+    throw new NoValueException();
+    
+  }
+  
+  /**This method returns true if the item specified has a quantity greater than 0, 
+    * if the item number is not present, an exception is thrown.
+    * 
+    * @exception NoValueException the indicated item number is not present */
+  
+  public boolean checkAvail( String ItemNum ){
+    
+    StoreItem checkingItem = this.getItem(ItemNum);
+    if(checkingItem.getQuant() > 0){
+      return true;
+    }
+    else{
+      return false;
+    }
+    
+  }
+  
+  //This method adds an item to the catalogue
+  
+  public void addItem( StoreItem newItem ){
+    
+    Node<StoreItem> p = catalogueList;
+    Node<StoreItem> q = null;
+    
+    if(catalogueList == null){
+      catalogueList = new Node<StoreItem>(newItem,null);
+    }
+    else{
+      while( p != null ){
+        q = p;
+        p = p.next;
+      }
+      q.next = new Node<StoreItem>(newItem,null);
+    }
+  }
+  
+  //This method returns the amount if item in the catalogue
+  
+  public int getItemAmount(){
+    
+    return itemAmount;
+    
+  }
+  
+  //This method returns the linked list of items
+  
+  public Node<StoreItem> getList(){
+    
+    return catalogueList;
+    
+  }
+  
+  
+} //Catalogue

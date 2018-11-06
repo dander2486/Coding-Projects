@@ -1,0 +1,68 @@
+package Spartan;
+
+/** This interface represents an item within the catalogue or within the
+  * cart of a customer. An item has a price, description, item number and
+  * quantity.
+  * 
+  * @author Daniel Sokic
+  * 
+  * @version 1.0 (Mar. 2018)                                             */
+
+public interface Item {
+  
+  /** This method returns the price of the item.
+    * 
+    * @return Double the price                                           */
+  
+  public double getPrice ( );
+  
+  /** This method returns the description of the item.
+    * 
+    * @return String the description                                           */
+  
+  public String getDesc ( );
+  
+  /** This method returns the number of the item.
+    * 
+    * @return String the item number                                           */
+  
+  public String getItemNum ( );
+  
+  /** This method returns the quantity of the item.
+    * 
+    * @return Integer the quantity                                           */
+  
+  public int getQuant ( );
+  
+ /** This method updates the price of the item
+    * 
+    * @param newPrice the new price that will be set to the item */
+    
+  public void setPrice ( double newPrice );
+  
+  /** This method updates the description of the item
+    * 
+    * @param newDescription the new description assigned to the item */
+  
+  public void setDesc ( String newDescription );
+  
+  /** This method updates the number of the item
+    * 
+    * @param newItemNumber the new item number that will be assigned to the item */
+  
+  public void setItemNum ( String newItemNumber );
+  
+  /** This method adds to the quantity of the item
+    * 
+    * @param newQuantity how much will be added to the quantity */
+  
+  public void addQuant ( int newQuantity );
+  
+  /** This method removes from the quantity of the item
+    * 
+    * @param newQuantity how much will be removed from the quantity */
+  
+  public void removeQuant ( int newQuantity );
+  
+  
+} //Item

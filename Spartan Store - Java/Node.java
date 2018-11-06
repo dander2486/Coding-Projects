@@ -1,0 +1,36 @@
+package Spartan;
+
+import java.io.*;
+
+
+/** This class represents a node in a sequentially-linked structure representing a
+  * collection of objects of type E.
+  * 
+  * @author  Daniel Sokic
+  * 
+  * @version  1.0 (Mar. 2018)                                                    */
+
+class Node <E> implements Serializable {
+    
+  private static final long  serialVersionUID = 99990005L;
+    
+    E        item;  // the item in the stack
+    Node<E>  next;  // the next node in the list
+    
+    
+    /** This constructor creates a new node for the sequentially-linked structure
+      * representing a collection.
+      * 
+      * @param  i  the item in the node.
+      * 
+      * @param  n  the next node in the list.                                    */
+    
+    public Node ( E i, Node<E> n ) {
+        
+        item = i;
+        next = n;
+        
+    }; // constructor
+    
+    
+} // Node
