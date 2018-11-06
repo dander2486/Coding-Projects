@@ -8,7 +8,7 @@ import BasicIO.*;
  * ****** THIS PROGRAM USES NETBEANS *******
  * 
  * 
- * @author Daniel Sokic (6164545)
+ * @author Daniel Sokic
  * @version 1.0 (October 17,2018)
  */
 public class InitializeTree {
